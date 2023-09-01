@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/services/location.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:weather_app/services/networking.dart';
+
+const apiKey = 'b0faa038e4d597112da4182065339588';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -12,32 +13,25 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  late double latitude;
+  late double longitude;
   @override
   void initState() {
-    getLocation();
+    getLocationData();
     super.initState();
   }
-  void getLocation() async {
-        Location location = Location();
-        await location.getCurrentLocation();
-        print(location.latitude);
-        print(location.longitute);
-  }
 
-  void getData()async{
-  //  http.Response response = await http.get(Uri.http('https://samples.openweathermap.org', '/data/2.5/weather?lat=35&lon=139&appid=b6907d289e10d714a6e88b30761fae22'));
+  void getLocationData() async {
+    Location location = Location();
+    await location.getCurrentLocation();
+    latitude = location.latitude;
+    longitude = location.longitute;
 
-    final uri = Uri.parse('https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b6907d289e10d714a6e88b30761fae22');
-    final response = await http.get(uri);
-    if(response.statusCode == 200){
+    NetworkHelper networkHelper = NetworkHelper(Uri.parse(
+        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey'));
 
-      var jsonResponse1 = jsonDecode(response.body) ['main']['temp'];
-      var jsonResponse2 = jsonDecode(response.body) ['weather'][0]['description'];
-      var jsonResponse3 = jsonDecode(response.body) ['name'];
-      print(jsonResponse1);
-      print(jsonResponse2);
-      print(jsonResponse3);
-    }
+    var weatherData = await networkHelper.getData();
+    print(weatherData['name']);
   }
 
   @override
@@ -46,8 +40,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            getData();
-            //getLocation();
+            getLocationData();
           },
           child: Text('Get Location'),
         ),
