@@ -17,6 +17,7 @@ dependencies:
   geolocator: ^10.0.0
   http: ^1.1.0
   flutter_spinkit: ^5.2.0
+  stroke_text: ^0.0.2
 
 dev_dependencies:
   flutter_test:
@@ -34,4 +35,15 @@ flutter:
       fonts:
         - asset: fonts/SpartanMB-Black.otf
           weight: 900
-
+    - family: Lemon
+      fonts:
+        - asset: fonts/Lemon-Regular.ttf
+          weight: 900
+    - family: Titillum
+      fonts:
+        - asset: fonts/TitilliumWeb-SemiBold.ttf
+          weight: 900
+    - family: Kalam
+      fonts:
+        - asset: fonts/Kalam-Regular.ttf
+          weight: 900

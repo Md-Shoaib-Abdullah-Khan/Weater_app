@@ -16,65 +16,84 @@ class _CityScreenState extends State<CityScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('images/city_background.jpg'),
+            image: AssetImage('images/Free City, Night, Sky Background Images, Atmospheric City Background Photo Background PNG and Vectors.jpeg'),
             fit: BoxFit.cover,
           ),
         ),
         constraints: BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
+
             children: <Widget>[
-              Align(
-                alignment: Alignment.topLeft,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    size: 50.0,
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Image(
+                      height: 50.0,
+                        width: 50.0,
+                      image: AssetImage("images/left-arrow.png"),
+                    ),
                   ),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.all(20.0),
-                child: TextField(
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                    fillColor: Colors.white,
-                    filled: true,
-                    icon: Icon(
-                      Icons.location_city,
-                      color: Colors.white,
-                    ),
-                    hintText: "Enter city name.",
-                    hintStyle: TextStyle(
-                      color: Colors.grey,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+
+                    padding: EdgeInsets.all(20.0),
+                    child: TextField(
+                      style: TextStyle(
+                        color: Colors.black,
                       ),
-                      borderSide: BorderSide.none,
+                      decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        icon: Icon(
+                          Icons.location_city,
+                          color: Colors.orangeAccent.shade100,
+                        ),
+                        hintText: "Enter city name.",
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                      onChanged: (value) {
+                          cityName = value;
+                        //print(cityName);
+                      },
                     ),
                   ),
-                  onChanged: (value) {
-                      cityName = value;
-                    //print(cityName);
-                  },
-                ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context, cityName);
+                    },
+                    child: Text(
+                      'Get Weather',
+                      style: TextStyle(
+                        fontFamily: 'Lemon',
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.orangeAccent.shade100,
+
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context, cityName);
-                },
-                child: Text(
-                  'Get Weather',
-                  style: kButtonTextStyle,
-                ),
-              ),
+
             ],
           ),
         ),
